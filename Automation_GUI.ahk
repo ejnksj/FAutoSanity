@@ -33,7 +33,7 @@ GUI, Add, Button, w120 xs ys+50, NewBtn3
 GUI, Add, Button, w120 xs ys+75, NewBtn4
 GUI, Add, Button, w120 xs ys+100, NewBtn5
 
-GUI, Add, Button, w120 xs+130 ys section gOldWrite, Old_Write Post
+GUI, Add, Button, w120 xs+130 ys section gOldWrite, Write/Edit Post
 GUI, Add, Button, w120 xs ys+25 gOldLikeBookmarkReply, Like/Bookmark/Reply
 GUI, Add, Button, w120 xs ys+50, OldBtn3
 GUI, Add, Button, w120 xs ys+75, OldBtn4
@@ -168,38 +168,55 @@ else if (ErrorLevel = 1)
 MouseMove, resultX+17, resultY+11
 Click, Left
 ;;아티클 수정
-Sleep, 500
-GuiControl,, TargetImg, *w0 *h-1 old_editpost.bmp
-ImageSearch, resultX, resultY, searchSX, searchSY, searchFX, searchFY, *120 old_editpost.bmp
-MouseMove, resultX+5, resultY
+
+Sleep, 2000
+;MsgBox, Step1
+;GuiControl,, TargetImg, *w0 *h-1 old_editpost.bmp
+;ImageSearch, resultX, resultY, searchSX, searchSY, searchFX, searchFY, *150 old_editpost.bmp
+;MouseMove, resultX+5, resultY
+;아티클 자세히보기 이미지검색이 제대로 안되어 강제로 첫글위치 클릭
+MouseMove, searchSX+(searchW/2), searchSY+(searchH/3)
 Click, Left
-Sleep, 500
+Sleep, 2000
+;MsgBox, Step2
 GuiControl,, TargetImg, *w0 *h-1 old_editpost2.bmp
 ImageSearch, resultX, resultY, searchSX, searchSY, searchFX, searchFY, *120 old_editpost2.bmp
-MouseMove, resultX+950, resultY+5
+MouseMove, resultX+388, resultY+5
 Click, Left
-Sleep, 500
+Sleep, 2000
+;MsgBox, Step3
 GuiControl,, TargetImg, *w0 *h-1 old_editpost3.bmp
 ImageSearch, resultX, resultY, searchSX, searchSY, searchFX, searchFY, *120 old_editpost3.bmp
 MouseMove, resultX+64, resultY+137
 Click, Left
-sleep, 500
+sleep, 2000
+;MsgBox, Step4
 Send Edited at %A_Hour%:%A_Min%:%A_Sec%`n`n
-sleep, 500
+sleep, 2000
 GuiControl,, TargetImg, *w0 *h-1 old_editpost4.bmp
 ImageSearch, resultX, resultY, searchSX, searchSY, searchFX, searchFY, *120 old_editpost4.bmp
 MouseMove, resultX+15, resultY+10
 Click, Left
-Sleep, 500
+Sleep, 2000
+;MsgBox, Step5
 GuiControl,, TargetImg, *w0 *h-1 old_editpost2.bmp
 ImageSearch, resultX, resultY, searchSX, searchSY, searchFX, searchFY, *120 old_editpost2.bmp
 MouseMove, resultX+10, resultY+10
 Click, Left
+Sleep, 2000
+;MsgBox, Refresh
+;MouseClickDrag, Left, searchSX+(searchW/2), searchSY+(searchH/3), searchSX+(searchW/2), searchSY+(searchH/3*2), 100
+DragX := searchSX+(searchW/2)
+DragY1 := searchSY+(searchH/3)
+DragY2 := searchSY+(searchH/3*2)
+SendEvent {Click %DragX% %DragY1% Down}{Click %DragX% %DragY2% Up}
+
 
 return
 
 ;***********************************************************************
 OldLikeBookmarkReply:
+;;좋아요, 보관, 댓글쓰기
 GuiControl, Show, TargetImg
 GuiControl,, TargetImg, *w0 *h-1 old_like.bmp
 ImageSearch, resultX, resultY, searchSX, searchSY, searchFX, searchFY, *120 old_like.bmp
@@ -212,7 +229,7 @@ MouseMove, resultX+15, resultY+19
 Click, Left
 Sleep, 1500
 GuiControl,, TargetImg, *w0 *h-1 old_reply.bmp
-ImageSearch, resultX, resultY, searchSX, searchSY, searchFX, searchFY, *120 old_reply.bmp
+ImageSearch, resultX, resultY, searchSX, searchSY, searchFX, searchFY, *160 old_reply.bmp
 MouseMove, resultX+92, resultY+17
 Click, Left
 Sleep, 3000
@@ -229,6 +246,17 @@ GuiControl,, TargetImg, *w0 *h-1 old_reply3.bmp
 ImageSearch, resultX, resultY, searchSX, searchSY, searchFX, searchFY, *120 old_reply3.bmp
 MouseMove, resultX, resultY
 Click, Left
+Sleep, 1500
+GuiControl,, TargetImg, *w0 *h-1 rereply.bmp
+ImageSearch, resultX, resultY, searchSX, searchSY, searchFX, searchFY, *160 rereply.bmp
+MouseMove, resultX+115, resultY+15
+Click, Left
+Sleep, 3000
+GuiControl,, TargetImg, *w0 *h-1 rereply_write.bmp
+ImageSearch, resultX, resultY, searchSX, searchSY, searchFX, searchFY, *160 rereply_write.bmp
+MouseMove, resultX+30, resultY+47
+Click, Left
+
 
 
 return
